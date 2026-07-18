@@ -1,6 +1,14 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""Milvus 向量数据库的 RAG 检索器适配实现。
+
+提供基于 Milvus（本地 Lite 或远端服务）的本地知识库能力：内置
+``DashscopeEmbeddings``（OpenAI 兼容接口的 Embedding 封装）与
+``MilvusRetriever``，负责集合 schema 定义、文档分块入库、相似度检索，
+以及自动扫描项目示例 markdown 作为可检索资源。
+"""
+
 import asyncio
 import hashlib
 import logging

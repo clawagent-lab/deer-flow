@@ -1,6 +1,13 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""网页抓取工具。
+
+提供 ``crawl_tool`` LangChain 工具，对给定 URL 进行抓取并返回 Markdown 格式
+正文内容；自动识别 PDF 链接并跳过直接抓取，正文过长者通过
+``compress_crawl_content`` 截断至前 1000 字符。
+"""
+
 import json
 import logging
 from typing import Annotated, Optional

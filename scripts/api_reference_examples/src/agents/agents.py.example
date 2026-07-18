@@ -1,0 +1,35 @@
+# src/agents/agents.py 示例用法
+#
+# 封装 LangChain 1.x create_agent，注入动态提示词中间件与工具拦截器。
+#
+# 1) 创建一个带动态提示词的智能体
+from src.agents.agents import create_agent
+from src.llms.llm import get_llm_by_type
+
+llm = get_llm_by_type("basic")
+agent = create_agent(
+    llm=llm,
+    agent_type="researcher",
+    tools=[],
+    prompt_template="researcher",
+    locale="zh-CN",
+)
+# agent 即为可运行的 Runnable，支持 invoke / ainvoke / astream
+
+# 2) 异步调用智能体
+import asyncio
+
+async def run():
+    result = await agent.ainvoke(
+        {"messages": [{"role": "user", "content": "帮我查一下 2025 年 AI Agent 框架对比"}]}
+    )
+    print(result["messages"][-1].content)
+
+asyncio.run(run())
+
+# 3) 使用内置中间件
+from src.agents.agents import DynamicPromptMiddleware, PreModelHookMiddleware
+
+# DynamicPromptMiddleware 会在模型调用前注入渲染好的系统提示词
+middleware = DynamicPromptMiddleware(prompt_template="researcher", locale="zh-CN")
+# 通常不直接使用，而是通过 create_agent 自动注入

@@ -1,6 +1,8 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""LangGraph 主工作流构建模块：装配 coordinator/planner/research_team/reporter 等节点与条件边，编译为可执行的 StateGraph，并提供带 MemorySaver 的有状态版本。"""
+
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import END, START, StateGraph
 

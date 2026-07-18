@@ -1,6 +1,12 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""PPT 子图的文件生成节点。
+
+调用 marp CLI 将 composer 节点产出的 Markdown 内容文件转换为
+.pptx 幻灯片文件，转换完成后删除临时 .md 文件，并返回生成文件的路径。
+"""
+
 import logging
 import os
 import subprocess

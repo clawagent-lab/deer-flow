@@ -1,6 +1,12 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""散文编辑（Prose）子图的"续写"节点。
+
+调用 prose_writer LLM，结合 prose_continue 提示模板对给定文本进行
+续写扩展，返回续写后的内容。
+"""
+
 import logging
 
 from langchain_core.messages import HumanMessage, SystemMessage

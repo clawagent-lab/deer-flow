@@ -1,6 +1,14 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""聊天及生成相关请求体 Pydantic 模型定义。
+
+包含 ``ChatRequest``（聊天对话主请求，含历史消息、研究资源、计划/澄清/搜索等
+运行参数）、``TTSRequest``（语音合成）、``GeneratePodcastRequest`` /
+``GeneratePPTRequest`` / ``GenerateProseRequest``（播客、PPT、散文生成）以及
+``EnhancePromptRequest``（提示词增强）等模型，供 FastAPI 路由统一校验入参。
+"""
+
 from typing import List, Optional, Union
 
 from pydantic import BaseModel, Field

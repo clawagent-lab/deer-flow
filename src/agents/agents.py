@@ -1,6 +1,13 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""LangChain 智能体的创建逻辑，是 agents 子包的核心实现。
+
+提供 create_agent 工厂函数，根据 agent 类型从 AGENT_LLM_MAP 选择对应 LLM，
+注入动态 prompt 模板（DynamicPromptMiddleware）和 pre-model hook（PreModelHookMiddleware）两类中间件，
+并按需通过 tool_interceptor 包装工具以实现调用前中断。统一了 DeerFlow 各节点的智能体构建方式。
+"""
+
 import asyncio
 import inspect
 import logging

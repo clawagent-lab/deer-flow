@@ -1,6 +1,14 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""工具调用拦截器，用于在指定工具执行前触发 LangGraph interrupt。
+
+核心类 ToolInterceptor 维护需中断的工具名单，并通过 wrap_tool / wrap_tools_with_interceptor
+对原始工具进行包装：在调用前判断是否命中中断名单，命中则抛出 interrupt 以暂停图执行、
+等待人工确认或外部输入，从而实现人机协作（human-in-the-loop）流程。同时对工具输入做
+日志安全脱敏处理。
+"""
+
 import json
 import logging
 from typing import Any, Callable, List, Optional

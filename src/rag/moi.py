@@ -1,6 +1,15 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""MatrixOne Intelligence (MOI) 平台的 RAG 检索器适配实现。
+
+``MOIProvider`` 继承 ``Retriever``，通过 MOI 的 BYOA API（自动追加
+``/byoa`` 后缀）按 ``Resource.uri`` 指定的数据集检索文档，支持配置
+``MOI_RETRIEVAL_SIZE`` 与 ``MOI_LIST_LIMIT`` 控制返回规模，将原始数据
+（文档、图像、音视频等经 MOI 处理后的 AI-ready 数据）映射为统一的
+``Document`` / ``Chunk`` 模型。
+"""
+
 import asyncio
 import os
 from urllib.parse import urlparse

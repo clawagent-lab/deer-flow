@@ -1,4 +1,12 @@
-# src/utils/context_manager.py
+# Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
+# SPDX-License-Identifier: MIT
+"""对话上下文管理器。
+
+定义 ``ContextManager``，依据 ``MODEL_TOKEN_LIMITS`` 配置估算消息列表的
+token 数（英文 4 字符≈1 token、非英文 1 字符≈1 token，并按消息类型加权），
+在超出 token 上限时对历史消息进行压缩/裁剪，保持前缀消息不变，
+确保上下文长度符合底层模型的限制要求。
+"""
 import copy
 import json
 import logging

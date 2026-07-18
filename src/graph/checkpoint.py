@@ -1,6 +1,8 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""会话检查点与消息流管理模块：``ChatStreamManager`` 结合 InMemoryStore 与 MongoDB/PostgreSQL 持久化聊天消息分片，并在会话结束时合并归档。"""
+
 import json
 import logging
 import uuid

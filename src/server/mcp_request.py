@@ -1,6 +1,13 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""MCP 服务端元数据请求/响应模型。
+
+定义 ``MCPServerMetadataRequest``（支持 stdio、sse、streamable_http 三种传输方式）
+与 ``MCPServerMetadataResponse``，请求模型内嵌 ``model_validator`` 对命令、参数、
+环境变量、URL、HTTP 头等进行安全校验，防止命令注入、本地文件越权访问等风险。
+"""
+
 from typing import Dict, List, Optional
 
 from pydantic import BaseModel, Field, model_validator

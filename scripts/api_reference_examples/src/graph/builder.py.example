@@ -1,0 +1,41 @@
+# src/graph/builder.py 示例用法
+#
+# 该模块构建 DeerFlow 的 LangGraph 主工作流，包含 coordinator、planner、
+# research_team（researcher/analyst/coder）、reporter、human_feedback 等节点。
+#
+# 1) 获取默认编译好的 graph（无记忆，每次运行独立）
+from src.graph.builder import build_graph
+
+graph = build_graph()
+# graph.invoke(...) / graph.astream(...) 即可运行
+
+# 2) 构建带内存 checkpoint 的 graph（保留同一 thread 的会话历史）
+from src.graph.builder import build_graph_with_memory
+
+memory_graph = build_graph_with_memory()
+config = {"configurable": {"thread_id": "user-123"}}
+# 第一次提问
+memory_graph.invoke(
+    {"messages": [{"role": "user", "content": "什么是 RAG？"}]},
+    config=config,
+)
+# 同一 thread_id 的后续提问会带上历史
+memory_graph.invoke(
+    {"messages": [{"role": "user", "content": "它和微调相比有什么优劣？"}]},
+    config=config,
+)
+
+# 3) 查看工作流结构（Mermaid 图）
+graph = build_graph()
+print(graph.get_graph(xray=True).draw_mermaid())
+
+# 4) 条件边函数：决定 research_team 的下一个执行节点
+from src.graph.builder import continue_to_running_research_team
+from src.graph.types import State
+
+state: State = {
+    "current_plan": ...,  # Plan 对象
+    # ...
+}
+next_node = continue_to_running_research_team(state)
+# 返回值之一："planner" | "researcher" | "analyst" | "coder"

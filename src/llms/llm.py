@@ -1,6 +1,12 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""LLM 子包入口。
+
+统一对外暴露大语言模型（LLM）的构造入口与缓存机制，供 DeerFlow 各智能体
+按 LLMType（如 basic/reasoning）获取对应的 LangChain ChatModel 实例。
+"""
+
 import logging
 import os
 from pathlib import Path

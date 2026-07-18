@@ -1,5 +1,11 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
+"""DeerFlow 多智能体工作流入口模块。
+
+负责构建 LangGraph 研究图谱并配置日志，提供 ``run_agent_workflow_async``
+以异步流式方式执行规划、研究、报告生成等完整研究流程，
+支持调试日志、计划迭代上限、澄清轮次与 MCP 工具集成等可调参数。
+"""
 
 import logging
 

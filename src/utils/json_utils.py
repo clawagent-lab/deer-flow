@@ -1,6 +1,14 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""JSON 与工具调用参数处理工具。
+
+提供 ``sanitize_args``（转义 ``[] {}`` 等特殊字符以避免工具调用入参问题）、
+``_extract_json_from_content``（从含冗余尾部 token 的字符串中截取最后一个
+完整 JSON 对象/数组）等函数，配合 ``json_repair`` 容错解析 LLM 输出，
+提升工具调用参数解析的健壮性。
+"""
+
 import json
 import logging
 import re

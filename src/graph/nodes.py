@@ -1,6 +1,8 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""LangGraph 节点实现模块：定义 coordinator、planner、research_team、researcher、coder、analyst、reporter、human_feedback、background_investigation 等节点的执行逻辑，串联 LLM、工具与提示模板。"""
+
 import json
 import logging
 import os

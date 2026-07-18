@@ -1,6 +1,11 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
-# Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
+"""Tavily 搜索 API 增强封装模块。
+
+在 ``langchain_tavily`` 原生 ``TavilySearchAPIWrapper`` 基础上扩展，
+提供同步与异步的 ``raw_results`` / ``raw_results_async`` 方法，
+支持图像、图像描述等额外字段的检索，并通过 ``SearchResultPostProcessor`` 对结果进行后处理。
+"""
 
 import json
 from typing import Dict, List, Optional

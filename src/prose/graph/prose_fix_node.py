@@ -1,6 +1,12 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""散文编辑（Prose）子图的"修复"节点。
+
+调用 prose_writer LLM，结合 prose_fix 提示模板对给定文本进行
+语法/拼写/表达等问题的修正，返回修复后的内容。
+"""
+
 import logging
 
 from langchain_core.messages import HumanMessage, SystemMessage

@@ -1,6 +1,14 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""DeerFlow 主 FastAPI 应用模块。
+
+负责构建并配置 ASGI 应用实例 ``app``，集成 LangGraph 多智能体研究流程，
+提供聊天对话、研究报告、播客/PPT 生成、提示词增强、MCP 工具加载、
+RAG 资源管理、报告评估等 HTTP 与 SSE 流式接口，并管理 PostgreSQL/MongoDB
+等 Checkpoint 持久化连接的生命周期。
+"""
+
 import asyncio
 import base64
 import json
@@ -790,6 +798,11 @@ async def _astream_workflow_generator(
     locale: str = "en-US",
     interrupt_before_tools: Optional[List[str]] = None,
 ):
+    """异步生成器：驱动 LangGraph 工作流并以 SSE 事件流形式产出每个节点的输出。
+
+    将 chat_stream 路由解析后的参数转换为初始 State，通过 graph.astream 流式消费，
+    并把消息块、工具调用、中断事件等格式化为 `text/event-stream` 数据帧。
+    """
     safe_thread_id = sanitize_thread_id(thread_id)
     safe_feedback = sanitize_log_input(interrupt_feedback) if interrupt_feedback else ""
     logger.debug(

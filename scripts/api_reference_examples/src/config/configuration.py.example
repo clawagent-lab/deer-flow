@@ -1,0 +1,37 @@
+# src/config/configuration.py 示例用法
+#
+# Configuration 是 DeerFlow 的运行时配置对象，通过 RunnableConfig.configurable 传入。
+#
+# 1) 在节点中读取 Configuration
+from src.config.configuration import Configuration
+from langchain_core.runnables import RunnableConfig
+
+def my_node(state, config: RunnableConfig):
+    cfg = Configuration.from_runnable_config(config)
+    print(cfg.max_plan_iterations)
+    print(cfg.max_step_num)
+    print(cfg.max_search_results)
+    return {}
+
+# 2) 构造带 Configuration 的 config
+config: RunnableConfig = {
+    "configurable": {
+        "thread_id": "default",
+        "max_plan_iterations": 2,
+        "max_step_num": 5,
+        "max_search_results": 10,
+        "mcp_settings": {"servers": {}},
+    },
+    "recursion_limit": Configuration().recursion_limit,
+}
+
+# 3) 获取递归限制
+from src.config.configuration import get_recursion_limit
+
+limit = get_recursion_limit(default=100)
+# 通常返回 100；可通过环境变量 RECURSION_LIMIT 覆盖
+
+# 4) 直接实例化默认配置
+cfg = Configuration()
+print(cfg.max_plan_iterations)  # 默认 1
+print(cfg.max_step_num)         # 默认 3

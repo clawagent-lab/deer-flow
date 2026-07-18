@@ -1,6 +1,8 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""工作流状态类型定义模块：``State`` 继承 ``MessagesState``，扩展运行时变量（locale、研究主题、计划、观察结果、最终报告等）与背景调查开关等配置字段。"""
+
 
 from dataclasses import field
 from typing import Any

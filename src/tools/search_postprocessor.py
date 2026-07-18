@@ -1,4 +1,11 @@
-# src/tools/search_postprocessor.py
+# Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
+# SPDX-License-Identifier: MIT
+"""搜索结果后处理器。
+
+定义 ``SearchResultProcessor``，对搜索返回的结果列表进行统一清洗：
+去重（按 URL）、低分过滤、移除 base64 内嵌图片、截断过长正文/描述，
+并按相关性分数降序排序，输出更精炼、可控的搜索结果集。
+"""
 import base64
 import logging
 import re

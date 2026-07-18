@@ -1,6 +1,13 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""PPT 子图的内容撰写节点。
+
+调用 LLM（基于 ppt_composer 配置）按指定 locale 的提示模板，
+将输入文本转换为 PPT 内容（Markdown 形式），并将内容写入临时
+.md 文件，供后续 ppt_generator 节点转换为 .pptx 文件。
+"""
+
 import logging
 import os
 import uuid

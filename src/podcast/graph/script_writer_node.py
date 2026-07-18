@@ -1,6 +1,13 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""播客（Podcast）子图的脚本撰写节点。
+
+调用 LLM（基于 podcast_script_writer 配置）将输入的原始文本转换为
+结构化的双人对谈脚本（Script 对象，含男/女声与段落）。优先使用
+json_mode 结构化输出，若模型不支持则回退到 JSON 修复解析流程。
+"""
+
 import json
 import logging
 

@@ -1,6 +1,8 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""Jina Reader 客户端模块：通过 ``https://r.jina.ai/`` 接口将给定 URL 转换为 HTML/Markdown 等格式，支持 API Key 鉴权以提升速率限制。"""
+
 import logging
 import os
 

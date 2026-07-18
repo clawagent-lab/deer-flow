@@ -1,6 +1,13 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""PPT 生成子图的构建模块。
+
+基于 LangGraph StateGraph 组装 PPT 生成工作流，依次串联：
+内容撰写（ppt_composer）→ 文件生成（ppt_generator），
+最终 compile 为可调用的 workflow 实例。
+"""
+
 from langgraph.graph import END, START, StateGraph
 
 from src.ppt.graph.ppt_composer_node import ppt_composer_node

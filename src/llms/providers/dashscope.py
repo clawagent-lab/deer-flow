@@ -1,6 +1,13 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""阿里通义千问 DashScope 平台的 LangChain ChatModel 适配器。
+
+基于 ``langchain_openai.ChatOpenAI`` 扩展，针对 DashScope 的 OpenAI 兼容接口
+补齐流式增量解析（``_convert_delta_to_message_chunk``）等行为，使项目能够
+通过统一接口调用通义千问系列模型（含 reasoning 等模式）。
+"""
+
 # Standard library imports
 from typing import Any, Dict, Iterator, List, Mapping, Optional, Type, Union, cast
 

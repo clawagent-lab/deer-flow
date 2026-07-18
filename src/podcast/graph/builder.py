@@ -1,6 +1,13 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""播客（Podcast）生成子图的构建模块。
+
+基于 LangGraph StateGraph 组装播客生成工作流，依次串联：
+脚本撰写（script_writer）→ 文本转语音（tts）→ 音频合成（audio_mixer），
+最终 compile 为可调用的 workflow 实例。
+"""
+
 from langgraph.graph import END, START, StateGraph
 
 from src.podcast.graph.audio_mixer_node import audio_mixer_node

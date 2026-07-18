@@ -1,6 +1,14 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""LangGraph 运行时的可配置字段定义。
+
+以 dataclass 形式集中声明 Configuration：包括研究资源、计划/步骤/搜索次数上限、
+MCP 设置、报告风格、深度思考与各类搜索开关、工具中断名单、递归回退等运行期参数。
+提供 from_runnable_config 类方法，优先从环境变量、其次从 RunnableConfig 的 configurable
+字段读取并构造实例，是 DeerFlow 图执行时获取运行配置的统一入口。
+"""
+
 import logging
 import os
 from dataclasses import dataclass, field, fields

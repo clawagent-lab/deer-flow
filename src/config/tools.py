@@ -1,6 +1,8 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""工具开关配置：定义搜索引擎、爬虫引擎、RAG 提供方的枚举，并通过环境变量读取当前选中项。"""
+
 import enum
 import os
 
@@ -27,6 +29,7 @@ class CrawlerEngine(enum.Enum):
 
 # Tool configuration
 SELECTED_SEARCH_ENGINE = os.getenv("SEARCH_API", SearchEngine.TAVILY.value)
+
 
 class RAGProvider(enum.Enum):
     DIFY = "dify"

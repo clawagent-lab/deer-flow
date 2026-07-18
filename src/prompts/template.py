@@ -1,6 +1,14 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""提示词模板加载与渲染工具。
+
+基于 Jinja2 构建模板环境（``env``），支持按 locale（如 zh-CN/en-US）加载
+对应的 ``*.md`` 模板并回退到默认英文版本。对外提供 ``get_prompt_template``
+读取原始模板字符串，以及 ``apply_prompt_template`` 将 AgentState / Configuration
+中的变量注入模板并返回 LangChain 消息列表。
+"""
+
 import dataclasses
 import os
 from datetime import datetime

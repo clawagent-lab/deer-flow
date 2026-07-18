@@ -1,6 +1,8 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""正文抽取模块：``ReadabilityExtractor`` 基于 readabilipy/Readability 算法从原始 HTML 中提取标题与正文，封装为 ``Article`` 返回。"""
+
 import logging
 
 from readabilipy import simple_json_from_html_string

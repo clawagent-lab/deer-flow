@@ -1,5 +1,12 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
+"""基于火山引擎 VikingDB 知识库的检索器实现模块。
+
+定义 ``VikingDBKnowledgeBaseProvider``，继承自 ``Retriever``，
+通过火山引擎 V4 风格的 HMAC-SHA256 签名调用 VikingDB 知识库检索接口，
+返回 ``Chunk`` / ``Document`` / ``Resource`` 等 RAG 检索结果，
+相关 endpoint、AK/SK 与 region 通过环境变量配置。
+"""
 
 import asyncio
 import hashlib

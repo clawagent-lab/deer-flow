@@ -1,6 +1,12 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""散文编辑（Prose）子图的"扩写"节点。
+
+调用 prose_writer LLM，结合 prose_longer 提示模板对给定文本进行
+扩写加长，在不改变原意的前提下增加内容丰富度，返回扩写后的内容。
+"""
+
 import logging
 
 from langchain_core.messages import HumanMessage, SystemMessage

@@ -1,6 +1,16 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""RAG 检索器的核心抽象与数据模型。
+
+定义检索增强生成的基础类型契约：
+- ``Chunk``：文档分块及其相似度分数；
+- ``Document``：聚合多个 ``Chunk`` 的文档，可序列化为 dict；
+- ``Resource``：Pydantic 模型，描述可检索资源的 URI/标题/描述；
+- ``Retriever``：抽象基类，规定 ``list_resources`` / ``query_relevant_documents``
+  等同步与异步接口，各后端 Provider 继承并实现具体逻辑。
+"""
+
 import abc
 
 from pydantic import BaseModel, Field

@@ -1,6 +1,13 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""配置子包入口，集中加载并暴露 DeerFlow 运行所需的各项配置。
+
+启动时通过 dotenv 加载环境变量，并从 loader、questions、tools 子模块汇总导出：
+yaml 配置加载器、内置示例问题、所选搜索引擎以及团队成员（researcher、coder）的角色描述配置，
+供工作流构建与智能体创建使用。
+"""
+
 from dotenv import load_dotenv
 
 from .loader import load_yaml_config

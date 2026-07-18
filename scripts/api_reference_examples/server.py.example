@@ -1,0 +1,38 @@
+# server.py 示例用法
+#
+# 该脚本是 FastAPI 服务的启动入口，实际应用对象在 src/server/app.py 中定义。
+#
+# 1) 默认启动（localhost:8000，info 日志级别）
+python server.py
+
+# 2) 开启热重载 + 指定端口 + debug 日志
+python server.py --reload --port 8000 --log-level debug
+
+# 3) 通过环境变量 DEBUG 覆盖日志级别
+DEBUG=true python server.py --host 0.0.0.0 --port 8080
+
+# 4) 绑定到非 localhost（仅限已加固的部署环境）
+python server.py --host 0.0.0.0 --port 8080 --log-level warning
+
+# 5) 在代码中直接使用 uvicorn 运行（等价于命令行）
+import uvicorn
+
+# 注意：应用对象路径为 "src.server:app"
+uvicorn.run(
+    "src.server:app",
+    host="localhost",
+    port=8000,
+    reload=True,
+    log_level="info",
+)
+
+# 6) 在代码中直接导入 app 对象进行测试或挂载
+from src.server.app import app
+
+# 可用于 TestClient 测试
+from starlette.testclient import TestClient
+
+client = TestClient(app)
+# 健康检查 / 状态接口（具体路由见 src/server/ 下各 *_request.py）
+# response = client.get("/health")
+# assert response.status_code == 200

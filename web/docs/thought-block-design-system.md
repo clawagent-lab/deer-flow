@@ -4,6 +4,8 @@
 
 确保思考块组件与整个应用的设计语言保持完全一致，提供统一的用户体验。
 
+图标采用 18px 的 `Lightbulb`（灯泡），标题文案使用翻译键 `chat.research.deepThinking`（中文「深度思考」/ 英文「Deep Thinking」）。颜色全部基于 CSS 变量（primary / border / card / muted-foreground 等），随主题切换，不使用硬编码颜色。
+
 ## 📐 设计规范
 
 ### 字体系统
@@ -16,7 +18,7 @@ line-height: 1; /* leading-none */
 ### 尺寸规范
 ```css
 /* 图标尺寸 */
-icon-size: 18px; /* 与文字比例协调 */
+icon-size: 18px; /* Lightbulb 图标，与文字比例协调 */
 
 /* 内边距 */
 padding: 1.5rem; /* px-6 py-4 */

@@ -1,6 +1,8 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""文章数据模型模块：``Article`` 封装标题与 HTML 内容，提供转 Markdown、转消息列表（含图片抽取）等方法，作为爬取结果的统一承载结构。"""
+
 import re
 from urllib.parse import urljoin
 

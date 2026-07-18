@@ -1,5 +1,11 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
+"""Tavily 带图像搜索的 LangChain 工具模块。
+
+定义 ``TavilySearchWithImages``，继承自 ``langchain_community`` 的 ``TavilySearchResults``，
+通过 ``EnhancedTavilySearchAPIWrapper`` 调用 Tavily API，
+在返回文本检索结果的同时附带图像及图像描述，供研究智能体获取更丰富的多媒体信息。
+"""
 
 import json
 import logging

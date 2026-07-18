@@ -1,6 +1,13 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""工具装饰器与日志增强辅助。
+
+提供 ``log_io`` 装饰器用于记录工具函数的输入输出；``LoggedToolMixin``
+与工厂函数 ``create_logged_tool`` 可为任意 ``BaseTool`` 子类动态生成
+带日志的派生类，便于在研究流程中统一观测工具调用行为。
+"""
+
 import functools
 import logging
 from typing import Any, Callable, Type, TypeVar

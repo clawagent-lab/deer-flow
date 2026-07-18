@@ -1,6 +1,13 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""散文编辑（Prose）子图的"自定义指令"节点。
+
+调用 prose_writer LLM，结合 prose_zap 提示模板，根据用户在
+state["command"] 中指定的自定义指令对文本执行任意编辑操作，
+返回处理后的内容。
+"""
+
 import logging
 
 from langchain_core.messages import HumanMessage, SystemMessage

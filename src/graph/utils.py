@@ -1,6 +1,8 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""图运行时消息工具模块：提供消息内容抽取、用户/助手消息判定、发言者名称集合等辅助函数，供节点与前端流式展示统一使用。"""
+
 from typing import Any
 
 ASSISTANT_SPEAKER_NAMES = {

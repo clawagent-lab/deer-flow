@@ -1,0 +1,60 @@
+# src/workflow.py 示例用法
+#
+# 该模块是 DeerFlow 的编排入口，构建 LangGraph 并以异步流式方式运行。
+#
+# 1) 直接运行（会打印主工作流的 Mermaid 图）
+python src/workflow.py
+
+# 2) 在异步代码中调用 run_agent_workflow_async
+import asyncio
+from src.workflow import run_agent_workflow_async
+
+async def main():
+    final_state = await run_agent_workflow_async(
+        user_input="调研 LangGraph 1.x 的多智能体编排能力",
+        debug=True,
+        max_plan_iterations=2,
+        max_step_num=4,
+        enable_background_investigation=True,
+        enable_clarification=True,
+        max_clarification_rounds=2,
+        locale="zh-CN",
+    )
+    # final_state 包含 final_report、current_plan、citations 等字段
+    print(final_state.get("final_report", ""))
+
+asyncio.run(main())
+
+# 3) 直接使用构建好的 graph 对象进行自定义流式消费
+from src.workflow import graph
+
+config = {
+    "configurable": {
+        "thread_id": "my-session",
+        "max_plan_iterations": 1,
+        "max_step_num": 3,
+    },
+    "recursion_limit": 100,
+}
+initial_state = {
+    "messages": [{"role": "user", "content": "什么是 Mixture of Experts？"}],
+    "auto_accepted_plan": True,
+    "research_topic": "什么是 Mixture of Experts？",
+}
+
+# graph.astream 以流式方式产出每个节点执行后的状态快照
+import asyncio
+
+async def stream():
+    async for state in graph.astream(initial_state, config=config, stream_mode="values"):
+        msgs = state.get("messages", [])
+        if msgs:
+            print(f"[step] messages count = {len(msgs)}")
+
+asyncio.run(stream())
+
+# 4) 启用调试日志（单独调用）
+from src.workflow import enable_debug_logging
+
+enable_debug_logging()
+# 此后 src / langchain / langgraph 命名空间的日志级别为 DEBUG

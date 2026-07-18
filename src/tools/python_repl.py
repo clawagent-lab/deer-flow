@@ -1,6 +1,13 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""Python 代码执行工具。
+
+提供 ``python_repl_tool`` LangChain 工具，供智能体在研究流程中执行
+Python 代码以进行数据分析或计算。工具默认通过环境变量
+``ENABLE_PYTHON_REPL`` 控制开关，未启用时返回禁用提示，避免误用。
+"""
+
 import logging
 import os
 from typing import Annotated, Optional

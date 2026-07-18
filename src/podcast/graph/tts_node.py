@@ -1,6 +1,13 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""播客（Podcast）子图的文本转语音（TTS）节点。
+
+遍历脚本中每一行，按男/女声切换音色（BV002/BV001），调用火山引擎
+VolcengineTTS 将段落合成为音频，base64 解码后追加到 audio_chunks
+状态中，供后续音频合成节点使用。
+"""
+
 import base64
 import logging
 import os

@@ -1,6 +1,14 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""RAGFlow 平台的 RAG 检索器适配实现。
+
+``RAGFlowProvider`` 继承 ``Retriever``，通过 RAGFlow 的检索 API 按
+``Resource.uri`` 解析出的 dataset/document 进行检索，支持配置
+``RAGFLOW_PAGE_SIZE`` 控制每页返回数量，以及 ``RAGFLOW_CROSS_LANGUAGES``
+指定跨语言检索范围，将结果映射为统一的 ``Document`` / ``Chunk`` 模型。
+"""
+
 import asyncio
 import os
 from typing import List, Optional

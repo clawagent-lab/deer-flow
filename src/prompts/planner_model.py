@@ -1,6 +1,13 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""Planner 智能体的结构化数据模型定义。
+
+基于 Pydantic 定义规划阶段的数据契约：``StepType``（research/analysis/processing）、
+``Step``（单步计划）与 ``Plan``（整体计划），用于约束 LLM 输出可解析的研究计划，
+驱动后续多智能体的搜索与分析流程。
+"""
+
 from enum import Enum
 from typing import List, Optional
 

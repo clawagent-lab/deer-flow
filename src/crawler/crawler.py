@@ -1,6 +1,8 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""统一爬取调度模块：``Crawler`` 依据配置在 JinaClient、ReadabilityExtractor、InfoQuestClient 等引擎间选择，抓取 URL 并返回 ``Article``，附带安全截断等工具函数。"""
+
 import re
 import logging
 

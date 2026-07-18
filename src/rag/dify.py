@@ -1,6 +1,13 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""Dify RAG 平台的检索器适配实现。
+
+``DifyProvider`` 继承 ``Retriever``，通过 Dify 的 dataset 检索 API
+（混合检索：关键词权重 0.3 + 向量权重 0.7）按 ``Resource.uri`` 指定的
+dataset 查询相关文档分块，并将其映射为统一的 ``Document`` / ``Chunk`` 模型。
+"""
+
 import asyncio
 import os
 from urllib.parse import urlparse

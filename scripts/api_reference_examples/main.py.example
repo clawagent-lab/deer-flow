@@ -1,0 +1,40 @@
+# main.py 示例用法
+#
+# 1) 交互模式（内置问题选择 + 自定义输入）
+#    首先选择语言，然后从内置问题列表选择或输入自定义问题。
+python main.py --interactive
+
+# 2) 直接传入查询（非交互）
+python main.py "分析 2025 年大语言模型在代码生成领域的趋势"
+
+# 3) 启用调试日志 + 多轮澄清 + 关闭背景调查
+python main.py "研究 RAG 架构优化" \
+    --debug \
+    --enable-clarification \
+    --max-clarification-rounds 2 \
+    --no-background-investigation
+
+# 4) 在 Python 代码中调用 ask() 函数
+from main import ask
+
+# 单次提问，自动接受计划，启用背景调查
+ask(
+    question="对比 Milvus 与 Qdrant 在千万级向量检索下的性能差异",
+    debug=False,
+    max_plan_iterations=2,
+    max_step_num=5,
+    enable_background_investigation=True,
+    enable_clarification=False,
+    locale="zh-CN",
+)
+
+# 5) 在 Python 代码中调用交互式 main()
+from main import main
+
+# 进入语言选择 -> 问题选择 -> 执行工作流的完整交互流程
+main(
+    debug=True,
+    max_plan_iterations=1,
+    max_step_num=3,
+    enable_background_investigation=True,
+)

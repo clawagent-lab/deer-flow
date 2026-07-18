@@ -1,6 +1,14 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""网络搜索工具集。
+
+依据配置 ``SELECTED_SEARCH_ENGINE`` 动态选择并返回对应的搜索工具：
+Tavily、InfoQuest、DuckDuckGo、Brave、Google Serper、Arxiv、Searx、Wikipedia
+等。所有工具均通过 ``create_logged_tool`` 包装为带日志版本，并按 ``conf.yaml``
+中的 ``SEARCH_ENGINE`` 配置注入域名过滤、搜索深度等参数。
+"""
+
 import logging
 import os
 from typing import List, Optional

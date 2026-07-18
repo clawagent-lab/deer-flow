@@ -1,6 +1,14 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""Qdrant 向量数据库的 RAG 检索器适配实现。
+
+提供基于 Qdrant 的本地知识库能力：内置 ``DashscopeEmbeddings``（OpenAI
+兼容接口的 Embedding 封装）与 ``QdrantProvider``，负责集合创建、文档分块
+入库、带过滤条件的相似度检索，以及将项目示例 markdown 资源注册为可检索项。
+常量 ``SCROLL_SIZE`` 控制滚动分页的批量大小。
+"""
+
 import asyncio
 import hashlib
 import logging

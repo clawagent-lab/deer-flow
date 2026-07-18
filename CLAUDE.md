@@ -15,12 +15,16 @@ uv run server.py --reload        # FastAPI backend (SSE streaming API)
 uv run main.py                   # Console CLI interface
 make langgraph-dev               # LangGraph Studio for visual graph debugging
 cd web && pnpm dev               # Next.js frontend
+./bootstrap.sh -d                # Full stack (backend + frontend), macOS/Linux
+bootstrap.bat -d                 # Full stack, Windows
 
 # Test
 make test                        # All tests via pytest
 pytest tests/unit/test_foo.py    # Single test file
 pytest tests/unit/test_foo.py::test_name  # Single test
 make coverage                    # Tests with coverage report
+# Note: pyproject.toml sets --cov=src by default and enforces fail_under=25.
+# First-time test runs require `make install-dev` (installs dev + test extras).
 
 # Lint/Format
 make lint                        # Ruff lint with auto-fix (includes import sorting)
@@ -54,11 +58,12 @@ START → coordinator → background_investigator → planner
   → reporter → END
 ```
 
-- `coordinator_node` — Entry point. Routes to planner or responds directly (greetings, small talk) via tool calls (`handoff_to_planner`, `direct_response`).
+- `coordinator_node` — Entry point. Routes to planner or responds directly (greetings, small talk) via tool calls (`handoff_to_planner`, `direct_response`). Outgoing routing uses `Command(goto=...)` to `background_investigator`, `planner`, or `human_feedback`.
 - `background_investigation_node` — Pre-research web search to provide context for planning.
 - `planner_node` — Generates a `Plan` (pydantic model in `src/prompts/planner_model.py`) with typed `Step`s (`RESEARCH`, `ANALYSIS`, `PROCESSING`). Can loop: after the research team finishes all steps, planner re-evaluates whether more iterations are needed.
 - `research_team_node` — Dispatcher that routes to the correct specialist based on the current step's `step_type`.
-- `reporter_node` — Synthesizes all observations into a final report. Strips `<think&gt;` tags from model output.
+- `human_feedback_node`— Interrupt-driven node for plan review/modification and clarification rounds. Engaged via `interrupt`; not part of the linear happy path above.
+- `reporter_node` — Synthesizes all observations into a final report. Strips `<think>` tags from model output.
 
 State is defined in `src/graph/types.py` as `State(MessagesState)` — extends LangGraph's message state with plan, observations, citations, clarification fields, and workflow control (`goto`).
 
@@ -94,6 +99,7 @@ Prompts are Jinja2 templates in `src/prompts/` as `.md` files:
 - `conf.yaml` — LLM models, search engine, crawler engine, tool interrupts, web search toggle. Env vars: `$VAR_NAME` syntax supported. Changes require restart (config is cached by `load_yaml_config`).
 - `Configuration` dataclass in `src/config/configuration.py` — Runtime config: `max_plan_iterations`, `max_step_num`, `max_search_results`, `report_style`, `enable_deep_thinking`, `mcp_settings`, etc. Merges from `RunnableConfig` + env vars.
 - `src/config/tools.py` — `SearchEngine` and `CrawlerEngine` enums, `RAGProvider` enum. `SEARCH_API` env var selects search engine (default: tavily).
+- Key `.env` vars: `SEARCH_API`/`TAVILY_API_KEY`/`BRAVE_SEARCH_API_KEY`/`INFOQUEST_API_KEY` (search), `AGENT_RECURSION_LIMIT` (graph depth), `ENABLE_PYTHON_REPL` (gates sandboxed code execution - off by default), `ENABLE_MCP_SERVER_CONFIGURATION` (gates MCP UI), `ALLOWED_ORIGINS` (CORS), `LANGGRAPH_CHECKPOINT_SAVER`+`LANGGRAPH_CHECKPOINT_DB_URL` (persistence). Copy `.env.example` -> `.env` and `conf.yaml.example` -> `conf.yaml` before first run.
 
 ### Server (FastAPI)
 
@@ -120,6 +126,13 @@ Each has its own `graph/builder.py`:
 - `src/prose/` — Prose writing/refinement
 - `src/prompt_enhancer/` — Improves user prompts before research
 - `src/rag/` — RAG integration (Dify, RAGFlow, VikingDB, Milvus, Qdrant)
+
+### Supporting Modules (src/)
+
+- `src/workflow.py`— Top-level entry that calls `build_graph()` and configures logging. Imported by `server.py` and `main.py`. `get_recursion_limit()` (from `Configuration`) sets the LangGraph recursion limit (default `AGENT_RECURSION_LIMIT=30`).
+- `src/crawler/`— Web page fetching/extraction behind the `crawl` tool: `JinaClient` / `InfoQuestClient` fetchers, `ReadabilityExtractor` + `article.py` for content parsing.
+- `src/citations/`— Citation pipeline: `extractor` pulls citations from tool responses, `collector` accumulates them, `formatter` renders output, `models.py` defines the schema. Backs the final `citations` SSE event.
+- `src/eval/`— Report quality evaluation (`evaluator`, `llm_judge`, `metrics`) behind `POST /api/report/evaluate`.
 
 ### Frontend (web/)
 

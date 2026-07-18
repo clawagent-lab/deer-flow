@@ -1,6 +1,13 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""本地知识库检索工具。
+
+定义 ``RetrieverTool``（同步/异步双实现），依据关键词从 ``rag://`` 前缀
+资源中检索相关文档。工具基于 ``src.rag`` 的 ``Retriever`` 与 ``Resource``
+抽象，按当前 ``SELECTED_RAG_PROVIDER`` 配置进行检索，优先级高于网络搜索。
+"""
+
 import logging
 from typing import List, Optional, Type
 

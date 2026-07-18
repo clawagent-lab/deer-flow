@@ -1,6 +1,13 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""散文编辑（Prose）子图的构建模块。
+
+基于 LangGraph StateGraph 组装散文编辑工作流，包含 continue、improve、
+shorter、longer、fix、zap 六个操作节点，通过条件边根据 state["option"]
+动态路由到对应节点执行编辑。
+"""
+
 import asyncio
 import logging
 

@@ -1,6 +1,8 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""配置加载模块：读取 conf.yaml 与环境变量，提供类型化的配置访问辅助函数与 YAML 解析缓存。"""
+
 import os
 from typing import Any, Dict
 

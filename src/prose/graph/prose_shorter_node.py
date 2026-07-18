@@ -1,6 +1,12 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""散文编辑（Prose）子图的"精简"节点。
+
+调用 prose_writer LLM，结合 prose_shorter 提示模板对给定文本进行
+压缩精简，在保留核心信息的前提下减少篇幅，返回精简后的内容。
+"""
+
 import logging
 
 from langchain_core.messages import HumanMessage, SystemMessage

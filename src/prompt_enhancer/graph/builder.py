@@ -1,6 +1,12 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""Prompt 增强子图的构建模块。
+
+基于 LangGraph StateGraph 组装提示词增强工作流，仅包含单一 enhancer
+节点作为入口与出口，compile 后返回可调用的图实例。
+"""
+
 from langgraph.graph import StateGraph
 
 from src.prompt_enhancer.graph.enhancer_node import prompt_enhancer_node

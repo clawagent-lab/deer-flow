@@ -1,0 +1,21 @@
+# src/config/loader.py 示例用法
+#
+# 加载 conf.yaml 与 .env 配置，提供全局配置常量。
+#
+# 1) 加载 conf.yaml
+from src.config.loader import load_yaml_config
+
+config = load_yaml_config("conf.yaml")
+search_config = config.get("SEARCH_ENGINE", {})
+print(search_config.get("engine"))
+
+# 2) 使用模块级常量（在导入时即从 .env / conf.yaml 读取）
+from src.config import SELECTED_SEARCH_ENGINE, SearchEngine
+
+if SELECTED_SEARCH_ENGINE == SearchEngine.TAVILY.value:
+    print("使用 Tavily 搜索")
+
+# 3) 获取 LLM 配置
+from src.config.loader import get_env
+api_key = get_env("OPENAI_API_KEY", default="")
+# 注意：仅在需要时读取，避免敏感信息泄露到日志

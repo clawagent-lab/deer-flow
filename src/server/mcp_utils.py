@@ -1,6 +1,13 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""MCP（Model Context Protocol）工具加载工具函数。
+
+提供 ``load_mcp_tools`` 等异步函数，依据 server_type（stdio / sse /
+streamable_http）创建对应 MCP 客户端会话，初始化连接并列举可用工具列表，
+供 DeerFlow 动态接入外部 MCP 工具服务。
+"""
+
 import logging
 from datetime import timedelta
 from typing import Any, Dict, List, Optional

@@ -1,6 +1,14 @@
 # Copyright (c) 2025 Bytedance Ltd. and/or its affiliates
 # SPDX-License-Identifier: MIT
 
+"""Prompt 增强子图的核心节点。
+
+调用 LLM（基于 prompt_enhancer 配置）结合上下文与报告风格偏好，
+对用户原始 prompt 进行改写增强。优先从响应中提取
+<enhanced_prompt> XML 标签内容，未匹配时回退到去除常见前缀的
+容错解析；异常时返回原始 prompt。
+"""
+
 import logging
 import re
 
