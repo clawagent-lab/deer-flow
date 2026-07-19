@@ -1,0 +1,26 @@
+# `backend/packages/harness/deerflow/config/tool_progress_config.py`
+
+> 代码事实分析（自动生成，基于 AST 静态分析，非 docstring 转载）  
+> 源文件: `backend/packages/harness/deerflow/config/tool_progress_config.py`  ·  行数: 46
+
+**模块文档首行**（仅供参考）: Configuration for tool progress tracking middleware.
+
+## 模块概览
+- 函数 0 个，类 1 个，模块级常量 0 个
+
+## 依赖（import）
+- `pydantic` -> BaseModel, Field
+
+## 类
+### 类 `ToolProgressConfig`  L6
+- 继承: BaseModel
+- _文档首行_: Configuration for task-level tool call progress tracking.
+- 类/实例变量:
+  - `enabled` = Field(default=False, description='Whether to enable tool ...
+  - `stagnation_threshold` = Field(default=3, ge=1, description='Number of consecutive...
+  - `warn_escalation_count` = Field(default=2, ge=1, description='Additional problem oc...
+  - `inject_assessment` = Field(default=True, description='Whether to inject progre...
+  - `jaccard_similarity_threshold` = Field(default=0.8, ge=0.0, le=1.0, description='Word-set ...
+  - `min_word_count_for_similarity` = Field(default=10, description='Minimum unique word count ...
+  - `exempt_tools` = Field(default_factory=lambda: {'ask_clarification', 'writ...
+  - `max_tracked_threads` = Field(default=100, ge=1, description='Maximum number of t...
